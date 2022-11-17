@@ -1,0 +1,40 @@
+
+
+<br><br><br><br><br><br>
+<mat-form-field appearance="standard">
+
+  <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="enrollHei" sortActionDescription="Sort by number"> Details </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button [routerLink]="['detailsenroll/'+element.id]"
+                color="primary">
+          Details</button>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="student">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="proposalNumber" sortActionDescription="Sort by number"> Student </th>
+    <td mat-cell *matCellDef="let element"> {{element.student.firstName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="sendinginstitution">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="erasmusCode" sortActionDescription="Sort by number"> Sending Institution </th>
+    <td mat-cell *matCellDef="let element"> {{element.sendinginstitution.sname}} </td>
+  </ng-container>
+  <ng-container matColumnDef="receivinginstitution">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="pic" sortActionDescription="Sort by number"> Receiving Institution </th>
+    <td mat-cell *matCellDef="let element"> {{element.receivinginstitution.organisationLegalName}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+<br><br><br><br><br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

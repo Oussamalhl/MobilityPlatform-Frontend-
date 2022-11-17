@@ -1,0 +1,67 @@
+
+
+<br><br><br><br><br><br>
+<mat-form-field appearance="standard">
+
+  <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+  <ng-container matColumnDef="enrollHei">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="enrollHei" sortActionDescription="Sort by number"> Enroll </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="d-flex justify-content-center">
+      <button mat-raised-button [routerLink]="['enrollhei/'+element.proposalNumber+'/'+element.erasmusCode+'/'
+      +element.pic+'/'+element.oid+'/'+element.organisationLegalName+'/'
+      +element.street+'/'+element.postalCode+'/'+element.city+'/'+element.country]"
+              color="primary">
+        Enroll</button>
+    </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="proposalNumber">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="proposalNumber" sortActionDescription="Sort by number"> proposalNumber </th>
+    <td mat-cell *matCellDef="let element"> {{element.proposalNumber}} </td>
+  </ng-container>
+  <ng-container matColumnDef="erasmusCode">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="erasmusCode" sortActionDescription="Sort by number"> erasmusCode </th>
+    <td mat-cell *matCellDef="let element"> {{element.erasmusCode}} </td>
+  </ng-container>
+  <ng-container matColumnDef="pic">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="pic" sortActionDescription="Sort by number"> pic </th>
+    <td mat-cell *matCellDef="let element"> {{element.pic}} </td>
+  </ng-container>
+  <ng-container matColumnDef="oid">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="oid" sortActionDescription="Sort by number"> oid </th>
+    <td mat-cell *matCellDef="let element"> {{element.oid}} </td>
+  </ng-container>
+  <ng-container matColumnDef="organisationLegalName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="organisationLegalName" sortActionDescription="Sort by number"> organisationLegalName </th>
+    <td mat-cell *matCellDef="let element"> {{element.organisationLegalName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="street">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="street" sortActionDescription="Sort by number"> street </th>
+    <td mat-cell *matCellDef="let element"> {{element.street}} </td>
+  </ng-container>
+  <ng-container matColumnDef="postalCode">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="postalCode" sortActionDescription="Sort by number"> postalCode </th>
+    <td mat-cell *matCellDef="let element"> {{element.postalCode}} </td>
+  </ng-container>
+  <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="city" sortActionDescription="Sort by number"> city </th>
+    <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+  </ng-container>
+  <ng-container matColumnDef="country">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="country" sortActionDescription="Sort by number"> country </th>
+    <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+  </ng-container>
+  <ng-container matColumnDef="webpage">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="webpage" sortActionDescription="Sort by number"> webpage </th>
+    <td mat-cell *matCellDef="let element"> {{element.webpage}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+<br><br><br><br><br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

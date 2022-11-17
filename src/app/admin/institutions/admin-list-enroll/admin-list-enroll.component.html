@@ -1,0 +1,280 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate
+      xmlns="http://www.w3.org/1999/html">
+
+  <section>
+    <h2>Personal information</h2>
+    <c-col [md]="4">
+      <label cLabel>First name</label>
+      <input class="form-control" type="text" formControlName="firstName" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Last name</label>
+      <input class="form-control" type="text" formControlName="lastName" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Nationality</label>
+      <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="1">Countries</label>
+      </div>
+      <select class="custom-select" id="1" formControlName="nationality">
+        <option value="" disabled selected>Select Country</option>
+        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+      </select>
+      </div>
+     <!-- <label cLabel>Nationality</label>
+      <input class="form-control" type="text" formControlName="nationality" required />-->
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Study cycle</label>
+      <input class="form-control" type="text" formControlName="studyCycle" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Education field</label>
+      <input class="form-control" type="text" formControlName="educationField" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Email</label>
+      <input class="form-control" type="email" formControlName="email" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Gender</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect02">Options</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect02" formControlName="sex">
+          <option selected>Choose...</option>
+          <option value=True>Male</option>
+          <option value=False>Female</option>
+        </select>
+      </div>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Birthdate</label>
+      <input class="form-control" type="date" formControlName="birthdate" required />
+    </c-col>
+  </section>
+
+
+  <section>
+    <h2>Receiving institution's information</h2>
+    <c-col [md]="4">
+      <label cLabel>Proposal Number</label>
+      <input class="form-control" type="text" formControlName="proposalNumber" required readOnly/>
+      <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Erasmus Code</label>
+      <input class="form-control" type="text" formControlName="erasmusCode" required readOnly/>
+    </c-col>
+
+
+    <c-col [md]="4">
+      <label cLabel>PIC</label>
+      <input class="form-control" type="text" formControlName="pic" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>OID</label>
+      <input class="form-control" type="text" formControlName="oid" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Organisation Legal Name</label>
+      <input class="form-control" type="text" formControlName="organisationLegalName" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Street</label>
+      <input class="form-control" type="text" formControlName="street" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Postal Code</label>
+      <input class="form-control" type="text" formControlName="postalCode" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>City</label>
+      <input class="form-control" type="text" formControlName="city" required readOnly/>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Country</label>
+      <input class="form-control" type="text" formControlName="country" required readOnly/>
+    </c-col>
+
+
+    <section>
+      <h2>Receiving institution's contact person</h2>
+
+      <c-col [md]="4">
+        <label cLabel>Name</label>
+        <input class="form-control" type="text" formControlName="rcpname" required />
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel>Email</label>
+        <input class="form-control" type="email" formControlName="rcpemail" required />
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel>Phone</label>
+        <input class="form-control" type="text" formControlName="rcpphone" required />
+      </c-col>
+
+    </section>
+
+  </section>
+
+  <section>
+    <h2>Sending institution's information</h2>
+
+    <!--<c-col [md]="4">
+      <label cLabel>Name</label>
+      <input class="form-control" type="text" formControlName="sname" required />
+    </c-col>-->
+    <c-col [md]="4">
+      <label cLabel>Name</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="name">Options</label>
+        </div>
+        <select class="custom-select" id="name" formControlName="type" #name>
+          <option selected>Choose...</option>
+          <option value="Esprit school of business">Esprit school of business</option>
+          <option value="Esprit ingenieur">Esprit ingenieur</option>
+          <option value="Esprit prepa">Esprit-prepa</option>
+        </select>
+      </div>
+      <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+    </c-col>
+
+
+    <c-col [md]="4" *ngIf="name.value==='Esprit school of business'">
+      <label cLabel>facOrDep</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="fac">Options</label>
+        </div>
+        <select class="custom-select" id="fac" formControlName="type" >
+          <option selected>Choose...</option>
+          <option value="Business A">Business A</option>
+          <option value="Business B">Business B</option>
+        </select>
+      </div>
+    </c-col>
+    <c-col [md]="4" *ngIf="name.value==='Esprit ingenieur'">
+      <label cLabel>facOrDep</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="fac1">Options</label>
+        </div>
+        <select class="custom-select" id="fac1" formControlName="type" >
+          <option selected>Choose...</option>
+          <option value="IT">IT</option>
+          <option value="Mechanics">Mechanics</option>
+          <option value="Electro-Mechanics">Electro-Mechanics</option>
+        </select>
+      </div>
+    </c-col>
+    <c-col [md]="4" *ngIf="name.value==='Esprit prepa'">
+      <label cLabel>facOrDep</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="fac2">Options</label>
+        </div>
+        <select class="custom-select" id="fac2" formControlName="type" >
+          <option selected>Choose...</option>
+          <option value="1">First year</option>
+          <option value="2">Second year</option>
+        </select>
+      </div>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Erasmus Code</label>
+      <input class="form-control" type="text" formControlName="serasmusCode" required />
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Adress</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="addr">Options</label>
+        </div>
+        <select class="custom-select" id="addr" formControlName="street" >
+          <option selected>Choose...</option>
+          <option value="Ariana Essoughra">Ariana-Raoued</option>
+          <option value="Charguia">Charguia-Cours des soirs</option>
+        </select>
+      </div>
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel>Country</label>
+      <input class="form-control" type="text" formControlName="scountry" value="Tunisia" required />
+    </c-col>
+
+
+    <section>
+      <h2>Sending institution's contact person</h2>
+
+      <c-col [md]="4">
+        <label cLabel>Contact Person</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="2">Options</label>
+          </div>
+          <select class="custom-select" id="2" formControlName="scpname" #selectedcph>
+            <option value="" disabled selected>Select Contact person</option>
+            <option *ngFor="let cp of contactpersons | async" [value]="cp.id">{{cp.name}}  </option>
+          </select>
+          <button type="button" (click)="selectedContactPerson(selectedcph.value)">Select Contact Person</button>
+        </div>
+        <!--<label cLabel>Name</label>
+        <input class="form-control" type="text" formControlName="scpname" required />-->
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel>Email</label>
+        <input class="form-control" type="email" formControlName="scpemail" [value]="selectedcp.cpemail" required />
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel>Phone</label>
+        <input class="form-control" type="text" formControlName="scpphone" [value]="selectedcp.phone" required />
+      </c-col>
+
+    </section>
+
+  </section>
+
+
+  <c-col [xs]="12">
+    <button cButton color="primary" type="submit">
+      Enroll!
+    </button>
+  </c-col>
+</form>
+
+
+<ng-template #dialogRef style="background-color: #ac2925">
+  <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
+  <mat-option *ngIf="isSending" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Added" : "Add Failed"}}</h2>
+  <div *ngIf="!isSending" mat-dialog-actions>
+    <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+  </div>
+</ng-template>

@@ -1,0 +1,80 @@
+<h2>{{cand.student.firstName}} {{cand.student.lastName}}</h2>
+<ul>
+  <li><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>
+  <ul>
+    <li>
+      <strong>erasmusCode:</strong> {{cand.receivinginstitution.erasmusCode}}
+    </li>
+    <li>
+      <strong>pic:</strong> {{cand.receivinginstitution.pic}}
+    </li>
+    <li>
+      <strong>oid:</strong> {{cand.receivinginstitution.oid}}
+    </li>
+    <li>
+      <strong>street:</strong> {{cand.receivinginstitution.street}}
+    </li>
+    <li>
+      <strong>postalCode:</strong> {{cand.receivinginstitution.postalCode}}
+    </li>
+    <li>
+      <strong>city:</strong> {{cand.receivinginstitution.city}}
+    </li>
+    <li>
+      <strong>country:</strong> {{cand.receivinginstitution.country}}
+    </li>
+    <li>
+      <strong>webpage:</strong> {{cand.receivinginstitution.webpage}}
+    </li>
+    <li>
+      <strong>ContactPerson:</strong>
+      <ul>
+        <li>
+          <strong>Name:</strong> {{cand.receivinginstitution.contactperson.name}}
+        </li>
+        <li>
+          <strong>Phone:</strong> {{cand.receivinginstitution.contactperson.phone}}
+        </li>
+        <li>
+          <strong>Email:</strong> {{cand.receivinginstitution.contactperson.cpemail}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+</ul>
+<ul>
+  <li><strong>Receiving institution:</strong> {{cand.sendinginstitution.sname}}</li>
+  <ul>
+    <li>
+      <strong>erasmusCode:</strong> {{cand.sendinginstitution.serasmusCode}}
+    </li>
+    <li>
+      <strong>street:</strong> {{cand.sendinginstitution.sfacOrDep}}
+    </li>
+    <li>
+      <strong>Address:</strong> {{cand.sendinginstitution.saddress}}
+    </li>
+    <li>
+      <strong>Country:</strong> {{cand.sendinginstitution.scountry}}
+    </li>
+    <li>
+      <strong>ContactPerson:</strong>
+      <ul>
+        <li>
+          <strong>Name:</strong> {{cand.sendinginstitution.contactperson.name}}
+        </li>
+        <li>
+          <strong>Phone:</strong> {{cand.sendinginstitution.contactperson.phone}}
+        </li>
+        <li>
+          <strong>Email:</strong> {{cand.sendinginstitution.contactperson.cpemail}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</ul>
+<!--
+<button type="button" (click)="confirmSelectedCand(cand.student)">Select Contact Person</button>
+-->
+
