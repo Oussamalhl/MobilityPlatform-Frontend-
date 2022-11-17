@@ -8,6 +8,7 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {ConfirmationPreselection} from "../../../models/confirmation-preselection";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
+import { cilCheckAlt,cilX } from '@coreui/icons';
 
 @Component({
   selector: 'app-admin-confirm-enroll',
@@ -15,6 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./admin-confirm-enroll.component.scss']
 })
 export class AdminConfirmEnrollComponent implements OnInit {
+  icons = { cilCheckAlt,cilX };
 
   ListCP:ConfirmationPreselection[]=[];
   ListCand:Candidature[]=[];
