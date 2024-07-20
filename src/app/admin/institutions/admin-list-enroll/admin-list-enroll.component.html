@@ -1,3 +1,5 @@
+<h1>{{this.rreceivinginstitution.organisationLegalName}}'s mobility opportunity application form</h1>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate
       xmlns="http://www.w3.org/1999/html">
 
@@ -149,7 +151,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="name">Options</label>
         </div>
-        <select class="custom-select" id="name" formControlName="type" #name>
+        <select class="custom-select" id="name" formControlName="sname" #name>
           <option selected>Choose...</option>
           <option value="Esprit school of business">Esprit school of business</option>
           <option value="Esprit ingenieur">Esprit ingenieur</option>
@@ -166,7 +168,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac">Options</label>
         </div>
-        <select class="custom-select" id="fac" formControlName="type" >
+        <select class="custom-select" id="fac" formControlName="sfacOrDep" >
           <option selected>Choose...</option>
           <option value="Business A">Business A</option>
           <option value="Business B">Business B</option>
@@ -179,7 +181,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac1">Options</label>
         </div>
-        <select class="custom-select" id="fac1" formControlName="type" >
+        <select class="custom-select" id="fac1" formControlName="sfacOrDep" >
           <option selected>Choose...</option>
           <option value="IT">IT</option>
           <option value="Mechanics">Mechanics</option>
@@ -193,7 +195,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac2">Options</label>
         </div>
-        <select class="custom-select" id="fac2" formControlName="type" >
+        <select class="custom-select" id="fac2" formControlName="sfacOrDep" >
           <option selected>Choose...</option>
           <option value="1">First year</option>
           <option value="2">Second year</option>
@@ -212,7 +214,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="addr">Options</label>
         </div>
-        <select class="custom-select" id="addr" formControlName="street" >
+        <select class="custom-select" id="addr" formControlName="saddress" >
           <option selected>Choose...</option>
           <option value="Ariana Essoughra">Ariana-Raoued</option>
           <option value="Charguia">Charguia-Cours des soirs</option>

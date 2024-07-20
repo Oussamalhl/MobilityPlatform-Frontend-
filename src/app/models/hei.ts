@@ -1,4 +1,9 @@
 export class Hei {
+  constructor() {
+
+  }
+
+
   proposalNumber!:string;
   erasmusCode!:string;
   pic!:string;
@@ -9,4 +14,6 @@ export class Hei {
   city!:string;
   country!:string;
   webpage!:string;
+  mobility!:boolean
+  rcp!:number
 }

@@ -43,40 +43,21 @@ export class AdminConfirmEnrollComponent implements OnInit {
     this.idcp=Number(value);
     this._service.getConfirmationPreselection(this.idcp).subscribe((data=>{
       this.cp=<ConfirmationPreselection>data;
-      let dialog = this.dialog.open(this.dialogRef);
-      this._service.confirmStudent(this.cp).subscribe(
-        (res) => {
-        console.log(res);
-        this.isSending = false;
-        this.sent = true;
-        dialog.addPanelClass('success-dialog');
-        },
-        (err) =>
-        {
-          console.log(err);
-          this.isSending = false;
-          this.sent = false;
-          dialog.addPanelClass('fail-dialog')
-        }
-        );
-
-
+      this._service.confirmStudent(this.cp).subscribe()
     }))
     //this._router.navigateByUrl("admin/showconfpres");
-    location.reload();
+    //location.reload();
+    setTimeout(() => this.reload(), 2500)
   }
   PreselectStudent(value: string) {
     this.idcp=Number(value);
     this._service.getConfirmationPreselection(this.idcp).subscribe((data=>{
       this.cp=<ConfirmationPreselection>data;
-      let dialog = this.dialog.open(this.dialogRef);
-      this._service.preselectStudent(this.cp).subscribe((res) => {console.log(res); this.isSending = false; this.sent = true; dialog.addPanelClass('success-dialog') ; },
-        (err) => {console.log(err); this.isSending = false; this.sent = false; dialog.addPanelClass('fail-dialog') });
-
-
+      this._service.preselectStudent(this.cp).subscribe();
     }))
     //this._router.navigateByUrl("admin/showconfpres");
-    location.reload();
+    //location.reload();
+    setTimeout(() => this.reload(), 2500)
   }
   showStudentsCands(value: string) {
     this.ids=Number(value);
@@ -85,15 +66,17 @@ export class AdminConfirmEnrollComponent implements OnInit {
     }))
     //this._router.navigateByUrl("admin/showconfpres");
   }
-
+reload(){
+  this._service.getAllConfirmationsPreselections().subscribe(res=>{
+    console.log(res);
+    this.ListCP=res;
+    this.dataSource=new MatTableDataSource<ConfirmationPreselection>(this.ListCP);
+    this.dataSource.sort=this.sort;
+    this.dataSource.paginator=this.paginator;
+  });
+}
   ngOnInit(): void {
-    this._service.getAllConfirmationsPreselections().subscribe(res=>{
-      console.log(res);
-      this.ListCP=res;
-      this.dataSource=new MatTableDataSource<ConfirmationPreselection>(this.ListCP);
-      this.dataSource.sort=this.sort;
-      this.dataSource.paginator=this.paginator;
-    });
+    this.reload()
   }
 
 

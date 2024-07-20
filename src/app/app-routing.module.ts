@@ -41,7 +41,7 @@ const routes: Routes = [
       },
 
       {path:'listhei', component: AdminListInstComponent},
-      {path:'listhei/enrollhei/:proposalNumber/:erasmusCode/:pic/:oid/:organisationLegalName/:street/:postalCode/:city/:country', component: AdminListEnrollComponent},
+      {path:'listhei/enrollhei/:proposalNumber/:erasmusCode/:pic/:oid/:organisationLegalName/:street/:postalCode/:city/:country/:rcp', component: AdminListEnrollComponent},
       {path:'showenroll', component: AdminShowEnrollmentComponent},
       {path:'showenroll/detailsenroll/:id', component: AdminDetailsEnrollmentComponent},
       {path:'showconfpres', component: AdminConfirmEnrollComponent},

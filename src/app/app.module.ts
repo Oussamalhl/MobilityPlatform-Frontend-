@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
@@ -24,24 +24,24 @@ import {
 } from './containers';
 
 import {
-  AvatarModule,
-  BadgeModule,
-  BreadcrumbModule,
-  ButtonGroupModule,
-  ButtonModule,
-  CardModule,
-  DropdownModule,
-  FooterModule,
-  FormModule,
-  GridModule,
-  HeaderModule,
-  ListGroupModule,
-  NavModule,
-  ProgressModule,
-  SharedModule,
-  SidebarModule,
-  TabsModule,
-  UtilitiesModule,
+    AvatarModule,
+    BadgeModule,
+    BreadcrumbModule,
+    ButtonGroupModule,
+    ButtonModule,
+    CardModule,
+    DropdownModule,
+    FooterModule,
+    FormModule,
+    GridModule,
+    HeaderModule,
+    ListGroupModule,
+    NavModule, PopoverModule,
+    ProgressModule,
+    SharedModule,
+    SidebarModule,
+    TabsModule,
+    UtilitiesModule,
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
@@ -62,6 +62,8 @@ import { AdminDetailsEnrollmentComponent } from './admin/Enrollment/admin-detail
 import { AdminShowEnrollmentComponent } from './admin/Enrollment/admin-show-enrollment/admin-show-enrollment.component';
 import { AdminConfirmEnrollComponent } from './admin/Enrollment/admin-confirm-enroll/admin-confirm-enroll.component';
 import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -82,47 +84,51 @@ const APP_CONTAINERS = [
     AdminShowEnrollmentComponent,
     AdminConfirmEnrollComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        AvatarModule,
-        BreadcrumbModule,
-        FooterModule,
-        DropdownModule,
-        GridModule,
-        HeaderModule,
-        SidebarModule,
-        IconModule,
-        PerfectScrollbarModule,
-        NavModule,
-        ButtonModule,
-        FormModule,
-        UtilitiesModule,
-        ButtonGroupModule,
-        ReactiveFormsModule,
-        SidebarModule,
-        SharedModule,
-        TabsModule,
-        ListGroupModule,
-        ProgressModule,
-        BadgeModule,
-        ListGroupModule,
-        CardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatTableModule,
-        MatSortModule,
-        MatButtonModule,
-        MatIconModule,
-        MatPaginatorModule,
-        HttpClientModule,
-        MatDialogModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatOptionModule
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AvatarModule,
+    BreadcrumbModule,
+    FooterModule,
+    DropdownModule,
+    GridModule,
+    HeaderModule,
+    SidebarModule,
+    IconModule,
+    PerfectScrollbarModule,
+    NavModule,
+    ButtonModule,
+    FormModule,
+    UtilitiesModule,
+    ButtonGroupModule,
+    ReactiveFormsModule,
+    SidebarModule,
+    SharedModule,
+    TabsModule,
+    ListGroupModule,
+    ProgressModule,
+    BadgeModule,
+    ListGroupModule,
+    CardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatSortModule,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatOptionModule,
+    PopoverModule,
+    FormsModule,
+    MatSelectModule,
+    NgbModule
 
-    ],
+  ],
   providers: [
     {
       provide: LocationStrategy,

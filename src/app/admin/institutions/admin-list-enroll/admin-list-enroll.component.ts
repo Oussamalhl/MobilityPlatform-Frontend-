@@ -34,8 +34,6 @@ export class AdminListEnrollComponent implements OnInit {
   sent = false;
 
 
-
-
   form = new FormGroup({
     proposalNumber: new FormControl(""),
     erasmusCode: new FormControl(""),
@@ -79,23 +77,26 @@ export class AdminListEnrollComponent implements OnInit {
 
   candidature: Candidature = new Candidature();
   student: Student = new Student();
-  sendinginstitution : SendingInstitution = new SendingInstitution();
-  scontactperson : ContactPerson = new ContactPerson();
-  rcontactperson : ContactPerson = new ContactPerson();
-  countries:any= countries;
-  contactpersons:any=this._service.getAllContactPerson();
-  selectedcp:ContactPerson=new ContactPerson();
-  id!:number
+  sendinginstitution: SendingInstitution = new SendingInstitution();
+  scontactperson: ContactPerson = new ContactPerson();
+  rcontactperson: ContactPerson = new ContactPerson();
+  countries: any = countries;
+  contactpersons: any = this._service.getAllContactPerson();
+  selectedcp: ContactPerson = new ContactPerson();
+
+  id!: number
+
   //@Output() newItemEvent = new EventEmitter<string>();
 
   selectedContactPerson(value: string) {
-    this.id=Number(value);
-    this._service.getContactPerson(this.id).subscribe((data)=>{
-      this.selectedcp=<ContactPerson>data;
+    this.id = Number(value);
+    this._service.getContactPerson(this.id).subscribe((data) => {
+        this.selectedcp = <ContactPerson>data;
       }
     )
     //this.newItemEvent.emit(this.selectedcp.cpemail);
   }
+
   //console.log(contactpersons);
 
 
@@ -132,6 +133,18 @@ export class AdminListEnrollComponent implements OnInit {
     this.form.controls['city'].setValue(this.rreceivinginstitution.city);
     this.form.controls['country'].setValue(this.rreceivinginstitution.country);
 
+    this.id = Number(this.route.snapshot.paramMap.get("rcp"))
+    console.log("rcp id: "+this.id)
+
+    this._service.getContactPerson(this.id).subscribe((data) => {
+        this.rcontactperson = <ContactPerson>data;
+        console.log("rcp: "+this.rcontactperson.name)
+        this.form.controls['rcpname'].setValue(this.rcontactperson.name);
+        this.form.controls['rcpemail'].setValue(this.rcontactperson.cpemail);
+        this.form.controls['rcpphone'].setValue(this.rcontactperson.phone);
+
+      }
+    )
 
   }
 
@@ -140,7 +153,7 @@ export class AdminListEnrollComponent implements OnInit {
     this.isSending = true;
     let dialog = this.dialog.open(this.dialogRef);
 
-    this.candidature.receivinginstitution=this.rreceivinginstitution
+    this.candidature.receivinginstitution = this.rreceivinginstitution
     console.log(this.candidature.receivinginstitution);
 
     this.student.firstName = this.form.value?.firstName ? this.form.value?.firstName : "";
@@ -178,15 +191,14 @@ export class AdminListEnrollComponent implements OnInit {
     this.scontactperson.cpemail = this.form.value?.scpemail ? this.form.value?.scpemail : "";
     this.scontactperson.phone = this.form.value?.scpphone ? this.form.value?.scpphone : "";*/
 
-    this.candidature.student=this.student;
-    this.rreceivinginstitution.contactperson=this.rcontactperson;
-    this.sendinginstitution.contactperson=this.selectedcp;
-    this.candidature.receivinginstitution=this.rreceivinginstitution;
-    this.candidature.sendinginstitution=this.sendinginstitution;
+    this.candidature.student = this.student;
+    this.rreceivinginstitution.contactperson = this.rcontactperson;
+    this.sendinginstitution.contactperson = this.selectedcp;
+    this.candidature.receivinginstitution = this.rreceivinginstitution;
+    this.candidature.sendinginstitution = this.sendinginstitution;
 
 
-
-    this._service.addCandidature(this.candidature,this.id).subscribe(
+    this._service.addCandidature(this.candidature, this.id).subscribe(
       (res) => {
         console.log(res);
         this.isSending = false;

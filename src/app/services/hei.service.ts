@@ -25,7 +25,7 @@ export class HeiService {
     return this._http.get<ContactPerson[]>("http://localhost:8081/showcps");
   }
   getContactPerson(id:number){
-    return this._http.get("http://localhost:8081/showcp?id="+id);
+    return this._http.get<ContactPerson>("http://localhost:8081/showcp?id="+id);
   }
   getCandidatures():Observable<Candidature[]>{
     return this._http.get<Candidature[]>("http://localhost:8081/ShowCand");
