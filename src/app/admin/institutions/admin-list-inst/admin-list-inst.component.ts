@@ -17,10 +17,10 @@ export class AdminListInstComponent implements OnInit {
   selectedProposal!:string
   selectedMobility!:Hei
   mobilityList:mobility[]=[
-    new mobility("101007499","A DORNBIR01","FACHHOCHSCHULE VORARLBERG GMBH","Baden","Austria",1),
-    new mobility("101013276","B DIEPENB07","Transnationale Universiteit Limburg","Maastricht","Netherlands",1),
-    new mobility("101013322","F AIX-PRO27","Travaux Publics CFA PACA","MALLEMORT","France",1),
-    new mobility("101012930","F PARIS468","SORBONNE UNIVERSITE","Paris","France",1)
+    new mobility("101007499","A DORNBIR01","FACHHOCHSCHULE VORARLBERG GMBH","Baden","Austria",4),
+    new mobility("101013276","B DIEPENB07","Transnationale Universiteit Limburg","Maastricht","Netherlands",4),
+    new mobility("101013322","F AIX-PRO27","Travaux Publics CFA PACA","MALLEMORT","France",5),
+    new mobility("101012930","F PARIS468","SORBONNE UNIVERSITE","Paris","France",5)
   ]
   dataSource = new MatTableDataSource<Hei>(this.ListHei);
   displayedColumns =['enrollHei','proposalNumber','erasmusCode','pic','oid','organisationLegalName','street','postalCode','city','country','webpage'];
@@ -46,7 +46,7 @@ findMobility(proposalNumber:string){
 
   this.ListHei.find(e=>e.proposalNumber==proposalNumber?this.selectedMobility=e:null)
   this.selectedMobility.mobility=true
-  this.selectedMobility.rcp=1
+  this.mobilityList.find(e=>e.proposalNumber==proposalNumber?this.selectedMobility.rcp=e.rcontactPerson:null)
   console.log("this Selected Mobility proposal: "+this.selectedMobility.proposalNumber)
 
   this.ListHei=[]

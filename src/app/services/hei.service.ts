@@ -5,7 +5,9 @@ import {Hei} from "../models/hei";
 import {Candidature} from "../models/candidature";
 import {ContactPerson} from "../models/contact-person";
 import { map } from 'rxjs/operators';
-import {ConfirmationPreselection} from "../models/confirmation-preselection";
+import {Student} from "../models/student";
+import {SendingInstitution} from "../models/sending-institution";
+import {ReceivingInstitution} from "../models/receiving-institution";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +16,17 @@ export class HeiService {
   private heiUrl="https://eche-list.erasmuswithoutpaper.eu/api";
 
   constructor(private _http:HttpClient) { }
-
+  getStudent(id:number){
+    return this._http.get<Student>("http://localhost:8081/ShowStud?id="+id);
+  }
   getHeiList():Observable<Hei[]>{
     return this._http.get<Hei[]>(this.heiUrl);
+  }
+  getReceivingInst(id:number){
+    return this._http.get<ReceivingInstitution>("http://localhost:8081/getReceivInst?id="+id);
+  }
+  getSendingInst(id:number){
+    return this._http.get<SendingInstitution>("http://localhost:8081/getSendInst?id="+id);
   }
   addCandidature(candidature:Candidature,id:number){
     return this._http.post("http://localhost:8081/addCand?idcp="+id,candidature);
@@ -33,20 +43,14 @@ export class HeiService {
   getCandidature(id:number){
     return this._http.get("http://localhost:8081/getCand/?id="+id);
   }
-  confirmStudent(cp:ConfirmationPreselection){
-    return this._http.put("http://localhost:8081/confirmStudent",cp);
+  confirmStudent(c:Candidature){
+    return this._http.post("http://localhost:8081/confCand",c);
   }
-  preselectStudent(cp:ConfirmationPreselection){
-    return this._http.put("http://localhost:8081/preselectStudent",cp);
+  preselectStudent(c:Candidature){
+    return this._http.post("http://localhost:8081/presCand",c);
   }
-  getAllConfirmationsPreselections():Observable<ConfirmationPreselection[]>{
-    return this._http.get<ConfirmationPreselection[]>("http://localhost:8081/getcps");
-  }
-  getConfirmationPreselection(id:number){
-    return this._http.get("http://localhost:8081/getconfpres/?id="+id);
-  }
-  getStudentCandidatures(id:number):Observable<Candidature[]>{
-    return this._http.get<Candidature[]>("http://localhost:8081/showstudcand?id="+id);
+  getStudentCandidatures(c:Candidature):Observable<Candidature[]>{
+    return this._http.post<Candidature[]>("http://localhost:8081/studCands",c);
   }
 
 }

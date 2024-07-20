@@ -5,7 +5,6 @@ import {MatSort, Sort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {HeiService} from "../../../services/hei.service";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
-import {ConfirmationPreselection} from "../../../models/confirmation-preselection";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { cilCheckAlt,cilX } from '@coreui/icons';
@@ -18,16 +17,14 @@ import { cilCheckAlt,cilX } from '@coreui/icons';
 export class AdminConfirmEnrollComponent implements OnInit {
   icons = { cilCheckAlt,cilX };
 
-  ListCP:ConfirmationPreselection[]=[];
   ListCand:Candidature[]=[];
   id!:number
   ids!:number
-  idcp!:number
+  cand!:Candidature
   isSending!:boolean
   sent!:boolean
-  cp!:ConfirmationPreselection
-  dataSource = new MatTableDataSource<ConfirmationPreselection>(this.ListCP);
-  columnsToDisplay =['showall','preselect','confirm','details','firstname','lastname','confirmed','preselected','preselectectiond','confirmationd'];
+  dataSource = new MatTableDataSource<Candidature>(this.ListCand);
+  columnsToDisplay =['showall','preselect','confirm','details','firstname','lastname','confirmed','preselected','confirmationd','receivingInst','sendingInst'];
 
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -38,39 +35,47 @@ export class AdminConfirmEnrollComponent implements OnInit {
   openDialog() {
     let dialog = this.dialog.open(this.dialogRef);
   }
+
   @Output() newItemEvent = new EventEmitter<number>();
-  ConfirmStudent(value: string) {
-    this.idcp=Number(value);
-    this._service.getConfirmationPreselection(this.idcp).subscribe((data=>{
-      this.cp=<ConfirmationPreselection>data;
-      this._service.confirmStudent(this.cp).subscribe()
-    }))
-    //this._router.navigateByUrl("admin/showconfpres");
-    //location.reload();
+
+  ConfirmStudent(idCand: number) {
+    this._service.getCandidature(idCand).subscribe(e=>{
+      this.cand=<Candidature>e;
+      this._service.confirmStudent(this.cand).subscribe()
+    })
     setTimeout(() => this.reload(), 2500)
   }
-  PreselectStudent(value: string) {
-    this.idcp=Number(value);
-    this._service.getConfirmationPreselection(this.idcp).subscribe((data=>{
-      this.cp=<ConfirmationPreselection>data;
-      this._service.preselectStudent(this.cp).subscribe();
-    }))
-    //this._router.navigateByUrl("admin/showconfpres");
-    //location.reload();
+  PreselectStudent(idCand: number) {
+    this._service.getCandidature(idCand).subscribe(e=>{
+      this.cand=<Candidature>e;
+      this._service.preselectStudent(this.cand).subscribe()
+    })
     setTimeout(() => this.reload(), 2500)
   }
-  showStudentsCands(value: string) {
-    this.ids=Number(value);
-    this._service.getStudentCandidatures(this.ids).subscribe((data=>{
-      this.ListCand=<Candidature[]>data;
-    }))
-    //this._router.navigateByUrl("admin/showconfpres");
+  showStudentsCands(idCand: number) {
+    this._service.getCandidature(idCand).subscribe(e=>{
+      this.cand=<Candidature>e;
+      this._service.getStudentCandidatures(this.cand).subscribe(e=>{
+        this.ListCand=e;
+      })
+    })
   }
 reload(){
-  this._service.getAllConfirmationsPreselections().subscribe(res=>{
+  this._service.getCandidatures().subscribe(res=>{
     console.log(res);
-    this.ListCP=res;
-    this.dataSource=new MatTableDataSource<ConfirmationPreselection>(this.ListCP);
+    this.ListCand=res;
+    // this.ListCand.forEach(e=>{
+    //   this._service.getStudent(e.student_id).subscribe(s=>{
+    //     e.student=s
+    //   })
+    //   this._service.getSendingInst(e.sendinginstitution_id).subscribe(sinst=>{
+    //     e.sendinginstitution=sinst
+    //   })
+    //   this._service.getReceivingInst(e.receivinginstitution_id).subscribe(rinst=>{
+    //     e.receivinginstitution=rinst
+    //   })
+    // })
+    this.dataSource=new MatTableDataSource<Candidature>(this.ListCand);
     this.dataSource.sort=this.sort;
     this.dataSource.paginator=this.paginator;
   });
