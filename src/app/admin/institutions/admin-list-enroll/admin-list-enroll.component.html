@@ -1,5 +1,5 @@
-<h1>{{this.rreceivinginstitution.organisationLegalName}}'s mobility opportunity application form</h1>
-
+<h1><b>{{this.rreceivinginstitution.organisationLegalName}}</b>'s mobility opportunity application form.</h1>
+<h2 style="color: #ac2925">Specialty: <b>{{this.specialty}}</b></h2>
 <form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate
       xmlns="http://www.w3.org/1999/html">
 
@@ -228,36 +228,36 @@
     </c-col>
 
 
-    <section>
-      <h2>Sending institution's contact person</h2>
+<!--    <section>-->
+<!--      <h2>Sending institution's contact person</h2>-->
 
-      <c-col [md]="4">
-        <label cLabel>Contact Person</label>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="2">Options</label>
-          </div>
-          <select class="custom-select" id="2" formControlName="scpname" #selectedcph>
-            <option value="" disabled selected>Select Contact person</option>
-            <option *ngFor="let cp of contactpersons | async" [value]="cp.id">{{cp.name}}  </option>
-          </select>
-          <button type="button" (click)="selectedContactPerson(selectedcph.value)">Select Contact Person</button>
-        </div>
-        <!--<label cLabel>Name</label>
-        <input class="form-control" type="text" formControlName="scpname" required />-->
-      </c-col>
+<!--      <c-col [md]="4">-->
+<!--        <label cLabel>Contact Person</label>-->
+<!--        <div class="input-group mb-3">-->
+<!--          <div class="input-group-prepend">-->
+<!--            <label class="input-group-text" for="2">Options</label>-->
+<!--          </div>-->
+<!--          <select class="custom-select" id="2" formControlName="scpname" #selectedcph>-->
+<!--            <option value="" disabled selected>Select Contact person</option>-->
+<!--            <option *ngFor="let cp of contactpersons | async" [value]="cp.id">{{cp.name}}  </option>-->
+<!--          </select>-->
+<!--          <button type="button" (click)="selectedContactPerson(selectedcph.value)">Select Contact Person</button>-->
+<!--        </div>-->
+<!--        &lt;!&ndash;<label cLabel>Name</label>-->
+<!--        <input class="form-control" type="text" formControlName="scpname" required />&ndash;&gt;-->
+<!--      </c-col>-->
 
-      <c-col [md]="4">
-        <label cLabel>Email</label>
-        <input class="form-control" type="email" formControlName="scpemail" [value]="selectedcp.cpemail" required />
-      </c-col>
+<!--      <c-col [md]="4">-->
+<!--        <label cLabel>Email</label>-->
+<!--        <input class="form-control" type="email" formControlName="scpemail" [value]="selectedcp.cpemail" required />-->
+<!--      </c-col>-->
 
-      <c-col [md]="4">
-        <label cLabel>Phone</label>
-        <input class="form-control" type="text" formControlName="scpphone" [value]="selectedcp.phone" required />
-      </c-col>
+<!--      <c-col [md]="4">-->
+<!--        <label cLabel>Phone</label>-->
+<!--        <input class="form-control" type="text" formControlName="scpphone" [value]="selectedcp.phone" required />-->
+<!--      </c-col>-->
 
-    </section>
+<!--    </section>-->
 
   </section>
 

@@ -50,22 +50,16 @@
           <c-col _ngcontent-qgx-c204="" xs="12" _nghost-qgx-c94="" class="col-12">
             <c-card _ngcontent-qgx-c204="" class="mb-4 card">
               <c-card-header _ngcontent-qgx-c204="" class="card-header">
-
-                <strong _ngcontent-qgx-c204 class="h3">Events List</strong>
-
+                <strong _ngcontent-qgx-c204 class="h3">ECHE List</strong>
               </c-card-header>
               <c-card-body _ngcontent-qgx-c204="" class="card-body">
                 <c-container>
                   <mat-form-field appearance="standard">
-
                     <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
                   </mat-form-field>
-                  <br>
-                  <div style="display: block;
-              overflow-x: scroll;
-              white-space: nowrap;">
+                  <div style="display: block;overflow-x: scroll;white-space: nowrap;">
                     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
-                      <ng-container matColumnDef="proposalNumber">-->
+                      <ng-container matColumnDef="proposalNumber">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header="proposalNumber"
                             sortActionDescription="Sort by number"> Proposal number
                         </th>
@@ -147,7 +141,7 @@
 
                                 <div class="popover-body">
                                   Are you sure you want to <i cTextColor="danger">enroll</i> in this mobility
-                                  opportunity?
+                                  opportunity? Specialty: <i cTextColor="danger">{{selectedMobility.specialty}}</i>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                   <button cButton
@@ -156,7 +150,7 @@
                                           variant="outline"
                                           [routerLink]="['enrollhei/'+element.proposalNumber+'/'+element.erasmusCode+'/'
                                       +element.pic+'/'+element.oid+'/'+element.organisationLegalName+'/'
-                                      +element.street+'/'+element.postalCode+'/'+element.city+'/'+element.country+'/'+element.rcp]"
+                                      +element.street+'/'+element.postalCode+'/'+element.city+'/'+element.country+'/'+element.rcp+'/'+element.specialty]"
                                   > Enroll
                                   </button>
                                   <button cButton

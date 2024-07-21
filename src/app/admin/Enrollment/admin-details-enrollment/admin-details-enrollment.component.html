@@ -1,6 +1,46 @@
-<h2>{{cand.student.firstName}} {{cand.student.lastName}}</h2>
+<style>
+
+  table {
+    width: 100%;
+    table-layout: auto;
+    text-align: center;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  td {
+    font-palette: dark;
+    font-size: 15px;
+  }
+
+  th {
+    width: max-content;
+    font-size: 23px;
+    color: black;
+  }
+
+  ul{
+    font-palette: dark;
+    font-size: 15px;
+  }
+  .titre{
+    font-palette: dark;
+    font-size: 20px;
+  }
+  .titre1{
+    font-palette: dark;
+    font-size: 18px;
+  }
+</style>
+
+
+<h1><b>{{cand.student.firstName}} {{cand.student.lastName}}</b>'s enrollment for <b>{{cand.receivinginstitution.organisationLegalName}}</b> details</h1>
 <ul>
-  <li><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>
+  <li class="titre"><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>
+  <br>
   <ul>
     <li>
       <strong>erasmusCode:</strong> {{cand.receivinginstitution.erasmusCode}}
@@ -26,8 +66,9 @@
     <li>
       <strong>webpage:</strong> {{cand.receivinginstitution.webpage}}
     </li>
-    <li>
+    <li class="titre1">
       <strong>ContactPerson:</strong>
+    </li>
       <ul>
         <li>
           <strong>Name:</strong> {{cand.receivinginstitution.contactperson.name}}
@@ -39,12 +80,12 @@
           <strong>Email:</strong> {{cand.receivinginstitution.contactperson.cpemail}}
         </li>
       </ul>
-    </li>
   </ul>
-
 </ul>
+
 <ul>
-  <li><strong>Receiving institution:</strong> {{cand.sendinginstitution.sname}}</li>
+  <li class="titre"><strong>Sending institution:</strong> {{cand.sendinginstitution.sname}}</li>
+  <br>
   <ul>
     <li>
       <strong>erasmusCode:</strong> {{cand.sendinginstitution.serasmusCode}}
@@ -58,8 +99,9 @@
     <li>
       <strong>Country:</strong> {{cand.sendinginstitution.scountry}}
     </li>
-    <li>
+    <li class="titre1">
       <strong>ContactPerson:</strong>
+    </li>
       <ul>
         <li>
           <strong>Name:</strong> {{cand.sendinginstitution.contactperson.name}}
@@ -71,10 +113,190 @@
           <strong>Email:</strong> {{cand.sendinginstitution.contactperson.cpemail}}
         </li>
       </ul>
-    </li>
+
   </ul>
 </ul>
-<!--
-<button type="button" (click)="confirmSelectedCand(cand.student)">Select Contact Person</button>
--->
+<c-row>
+  <c-col class="col-2">
+  </c-col>
+    <c-col class="col-2">
+      <button [hidden]="cand.preselected" mat-raised-button color="accent"
+              (click)="PreselectStudent(cand.id)">
+        Preselect
+      </button>
+      <button [hidden]="!cand.preselected || cand.confirmed" mat-raised-button color="accent"
+              (click)="removeSelection(cand.id)">
+        Remove preselection
+      </button>
+    </c-col>
+  <c-col class="col-2">
+    <button [hidden]="(cand.preselected && cand.confirmed) || !(cand.preselected)"
+            mat-raised-button color="primary" (click)="ConfirmStudent(cand.id)">
+      Confirm
+    </button>
+    <button [hidden]="!cand.confirmed" mat-raised-button color="primary"
+            (click)="removeConfirmation(cand.id)">
+      Remove confirmation
+    </button>
+  </c-col>
+</c-row>
 
+<br><br><br><br><br><br>
+<c-row>
+  <c-col>
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto container-lg" _nghost-qgx-c92="">
+        <c-row _ngcontent-qgx-c191="" _nghost-qgx-c96="" class="row">
+          <c-col _ngcontent-qgx-c204="" xs="12" _nghost-qgx-c94="" class="col-12">
+            <c-card _ngcontent-qgx-c204="" class="mb-4 card">
+              <c-card-header _ngcontent-qgx-c204="" class="card-header">
+                <strong _ngcontent-qgx-c204 class="h3">{{cand.student.firstName}}'s overall enrollments</strong>
+              </c-card-header>
+              <c-card-body _ngcontent-qgx-c204="" class="card-body">
+                <c-container>
+                  <mat-form-field appearance="standard">
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+                  </mat-form-field>
+                  <div style="display: block;overflow-x: scroll;white-space: nowrap;">
+                    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+                      <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="details"
+                            sortActionDescription="Sort by number"> Details
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button mat-raised-button color="" [routerLink]="['detailsenroll/'+element.id]">
+                              Details
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="contactPerson">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="contactPerson"
+                            sortActionDescription="Sort by number"> contact Person
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button *ngIf="!element.sendinginstitution.contactperson else not" mat-raised-button>Contact
+                              Person
+                            </button>
+                            <ng-template #not>{{element.sendinginstitution.contactperson.name}}</ng-template>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="confirm">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="enrollHei"
+                            sortActionDescription="Sort by number"> Remove Confirmation
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button [disabled]="!element.confirmed" mat-raised-button color="primary"
+                                    (click)="removeConfirmation(element.id)">
+                              Remove confirmation
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="preselect">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="preselect"
+                            sortActionDescription="Sort by number"> Remove Preselection
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button [disabled]="!element.preselected" mat-raised-button color="accent"
+                                    (click)="removeSelection(element.id)">
+                              Remove preselection
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <!--  <ng-container matColumnDef="showall" >-->
+                      <!--    <th mat-header-cell *matHeaderCellDef mat-sort-header="showall" sortActionDescription="Sort by number"> All </th>-->
+                      <!--    <td mat-cell *matCellDef="let element">-->
+                      <!--      <div class="d-flex justify-content-center">-->
+                      <!--        <button mat-raised-button color="warn" (click)="showStudentsCands(element.id)">-->
+                      <!--          All</button>-->
+                      <!--      </div>-->
+                      <!--    </td>-->
+                      <!--  </ng-container>-->
+
+                      <!--<ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by number"> First Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                      </ng-container>-->
+                      <ng-container matColumnDef="confirmed">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmed"
+                            sortActionDescription="Sort by number"> Confirmed
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngIf="element.confirmed else not">
+                            <svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg>
+                          </div>
+                          <ng-template #not>
+                            <svg [cIcon]="icons.cilX" width="25"></svg>
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="preselected">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="preselected"
+                            sortActionDescription="Sort by number"> Preselected
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngIf="element.preselected else not">
+                            <svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg>
+                          </div>
+                          <ng-template #not>
+                            <svg [cIcon]="icons.cilX" width="25"></svg>
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="confirmationd">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmationd"
+                            sortActionDescription="Sort by number"> Confirmation Date
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.confirmationD}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="receivingInst">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="receivingInst"
+                            sortActionDescription="Sort by number"> Receiving institution
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let element"> {{element.receivinginstitution.organisationLegalName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="city">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="city"
+                            sortActionDescription="Sort by number"> City
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let element"> {{element.receivinginstitution.city}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="country">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="country"
+                            sortActionDescription="Sort by number"> County
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let element"> {{element.receivinginstitution.country}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="sendingInst">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="sendingInst"
+                            sortActionDescription="Sort by number"> Sending institution
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.sendinginstitution.sname}} </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                  </div>
+                </c-container>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-container>
+    </div>
+  </c-col>
+</c-row>

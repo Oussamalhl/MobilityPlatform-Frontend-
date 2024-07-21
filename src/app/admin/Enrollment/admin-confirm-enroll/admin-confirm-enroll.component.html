@@ -1,10 +1,10 @@
-
 <style>
 
   table {
     width: 100%;
     table-layout: auto;
     text-align: center;
+
   }
 
   .mat-form-field {
@@ -29,198 +29,269 @@
 
 </style>
 <br><br><br><br><br><br>
+<c-row>
+  <c-col>
+    <div class="body flex-grow-1 px-3">
+      <c-container breakpoint="lg" class="h-auto container-lg" _nghost-qgx-c92="">
+        <c-row _ngcontent-qgx-c191="" _nghost-qgx-c96="" class="row">
+          <c-col _ngcontent-qgx-c204="" xs="12" _nghost-qgx-c94="" class="col-12">
+            <c-card _ngcontent-qgx-c204="" class="mb-4 card">
+              <c-card-header _ngcontent-qgx-c204="" class="card-header">
+                <strong _ngcontent-qgx-c204 class="h3">Overall Enrollments</strong>
+              </c-card-header>
+              <c-card-body _ngcontent-qgx-c204="" class="card-body">
+                <c-container>
+                  <mat-form-field appearance="standard">
 
-<mat-form-field appearance="standard">
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
+                  </mat-form-field>
+                  <div style="display: block;overflow-x: scroll;white-space: nowrap;">
+                    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
 
-  <input matInput (keyup)="applyFilter($event)" placeholder="Insert Keyword" #input>
-</mat-form-field>
-<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
+                      <ng-container matColumnDef="confirm">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="enrollHei"
+                            sortActionDescription="Sort by number"> Confirmation
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button [disabled]="(element.preselected && element.confirmed) || !(element.preselected)"
+                                    mat-raised-button color="primary" (click)="ConfirmStudent(element.id)">
+                              Confirm
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="preselect">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="preselect"
+                            sortActionDescription="Sort by number"> Preselection
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button [disabled]="element.preselected" mat-raised-button color="accent"
+                                    (click)="PreselectStudent(element.id)">
+                              Preselect
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="details">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="details"
+                            sortActionDescription="Sort by number"> Details
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button mat-raised-button color="" [routerLink]="['/admin/showconfpres/detailsenroll/'+element.id]">
+                              Details
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <!--  <ng-container matColumnDef="showall" >-->
+                      <!--    <th mat-header-cell *matHeaderCellDef mat-sort-header="showall" sortActionDescription="Sort by number"> All </th>-->
+                      <!--    <td mat-cell *matCellDef="let element">-->
+                      <!--      <div class="d-flex justify-content-center">-->
+                      <!--        <button mat-raised-button color="warn" (click)="showStudentsCands(element.id)">-->
+                      <!--          All</button>-->
+                      <!--      </div>-->
+                      <!--    </td>-->
+                      <!--  </ng-container>-->
+                      <ng-container matColumnDef="contactPerson">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="contactPerson"
+                            sortActionDescription="Sort by number"> contact Person
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button *ngIf="!element.sendinginstitution.contactperson else not" mat-raised-button
+                                    (click)="openDialog(element.id)">Contact Person
+                            </button>
+                            <ng-template #not>{{element.sendinginstitution.contactperson.name}}</ng-template>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <!--<ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by number"> First Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                      </ng-container>-->
+                      <ng-container matColumnDef="firstname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="firstname"
+                            sortActionDescription="Sort by number"> First Name
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.student.firstName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="lastname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="lastname"
+                            sortActionDescription="Sort by number"> Last Name
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.student.lastName}} </td>
+                      </ng-container>
 
-
-  <ng-container matColumnDef="confirm" >
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="enrollHei" sortActionDescription="Sort by number"> Confirmation </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="d-flex justify-content-center">
-        <button [disabled]="element.preselected && element.confirmed" mat-raised-button color="primary"  (click)="ConfirmStudent(element.id)">
-          Confirm</button>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="preselect" >
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="preselect" sortActionDescription="Sort by number"> Preselection </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="d-flex justify-content-center">
-        <button [disabled]="element.preselected" mat-raised-button color="accent" (click)="PreselectStudent(element.id)">
-          Preselect</button>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="details" >
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="details" sortActionDescription="Sort by number"> Details </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="d-flex justify-content-center">
-        <button mat-raised-button color="" [routerLink]="['detailsenroll/'+element.id]">
-          Details</button>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="showall" >
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="showall" sortActionDescription="Sort by number"> All </th>
-    <td mat-cell *matCellDef="let element">
-      <div class="d-flex justify-content-center">
-        <button mat-raised-button color="warn" (click)="showStudentsCands(element.id)">
-          All</button>
-      </div>
-    </td>
-  </ng-container>
-  <!--<ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="id" sortActionDescription="Sort by number"> First Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>-->
-  <ng-container matColumnDef="firstname">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="firstname" sortActionDescription="Sort by number"> First Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.student.firstName}} </td>
-  </ng-container>
-  <ng-container matColumnDef="lastname">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="lastname" sortActionDescription="Sort by number"> Last Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.student.lastName}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="confirmed">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmed" sortActionDescription="Sort by number"> Confirmed </th>
-    <td mat-cell *matCellDef="let element"> <div *ngIf="element.confirmed else not"><svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg></div>
-      <ng-template #not><svg  [cIcon]="icons.cilX" width="25"></svg> </ng-template>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="preselected">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="preselected" sortActionDescription="Sort by number"> Preselected </th>
-    <td mat-cell *matCellDef="let element"> <div *ngIf="element.preselected else not"><svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg></div>
-      <ng-template #not><svg  [cIcon]="icons.cilX" width="25"></svg> </ng-template>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="confirmationd">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmationd" sortActionDescription="Sort by number"> Confirmation Date </th>
-    <td mat-cell *matCellDef="let element"> {{element.confirmationD}} </td>
-  </ng-container>
-  <ng-container matColumnDef="receivingInst">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="receivingInst" sortActionDescription="Sort by number"> Receiving institution </th>
-    <td mat-cell *matCellDef="let element"> {{element.receivinginstitution.organisationLegalName}} </td>
-  </ng-container>
-  <ng-container matColumnDef="sendingInst">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header="sendingInst" sortActionDescription="Sort by number"> Sending institution </th>
-    <td mat-cell *matCellDef="let element"> {{element.sendinginstitution.sname}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-
-  <ng-template #dialogRef style="background-color: #ac2925">
-    <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
-    <mat-option *ngIf="isSending" class="is-loading">
-      <mat-spinner diameter="50"></mat-spinner>
-    </mat-option>
-    <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Added" : "Add Failed "}}</h2>
-    <div *ngIf="!isSending" mat-dialog-actions>
-      <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+                      <ng-container matColumnDef="confirmed">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmed"
+                            sortActionDescription="Sort by number"> Confirmed
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngIf="element.confirmed else not">
+                            <svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg>
+                          </div>
+                          <ng-template #not>
+                            <svg [cIcon]="icons.cilX" width="25"></svg>
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="preselected">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="preselected"
+                            sortActionDescription="Sort by number"> Preselected
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div *ngIf="element.preselected else not">
+                            <svg [cIcon]="icons.cilCheckAlt" width="25" title="Shield Icon"></svg>
+                          </div>
+                          <ng-template #not>
+                            <svg [cIcon]="icons.cilX" width="25"></svg>
+                          </ng-template>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="confirmationd">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="confirmationd"
+                            sortActionDescription="Sort by number"> Confirmation Date
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.confirmationD}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="receivingInst">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="receivingInst"
+                            sortActionDescription="Sort by number"> Receiving institution
+                        </th>
+                        <td mat-cell
+                            *matCellDef="let element"> {{element.receivinginstitution.organisationLegalName}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="sendingInst">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="sendingInst"
+                            sortActionDescription="Sort by number"> Sending institution
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.sendinginstitution.sname}} </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+                  </div>
+                </c-container>
+              </c-card-body>
+            </c-card>
+          </c-col>
+        </c-row>
+      </c-container>
     </div>
-  </ng-template>
+  </c-col>
+</c-row>
+<ng-template #dialogRef style="background-color: #ac2925">
+  <h1 mat-dialog-title>{{isSending ? "Sending" : "Finished"}}</h1>
+  <mat-option *ngIf="isSending" class="is-loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </mat-option>
+  <h2 *ngIf="!isSending" mat-dialog-content>{{sent ? "Successfully Added" : "Add Failed "}}</h2>
+  <div *ngIf="!isSending" mat-dialog-actions>
+    <button class="btn btn-primary" mat-button mat-dialog-close="">Close</button>
+  </div>
+</ng-template>
+<!--<div *ngFor="let cand of ListCand let index = index let last=last" >-->
+<!--<h2 id="header" *ngIf="index==0">{{cand.student.firstName}} {{cand.student.lastName}}</h2>-->
+<!--  &lt;!&ndash;&lt;!&ndash;<p *ngIf="last">Total:{{index}}-->
+<!--  </p>&ndash;&gt;-->
+<!--  <script >-->
+<!--    var h2 = document.getElementById('header');-->
+<!--    var content = document.createTextNode("total");-->
+<!--    h2.appendChild()-->
 
-</table>
-<mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
-<div *ngFor="let cand of ListCand let index = index let last=last" >
-<h2 id="header" *ngIf="index==0">{{cand.student.firstName}} {{cand.student.lastName}}</h2>
-  <!--&lt;!&ndash;<p *ngIf="last">Total:{{index}}
-  </p>&ndash;&gt;
-  <script >
-    var h2 = document.getElementById('header');
-    var content = document.createTextNode("total");
-    h2.appendChild()
+<!--    //h2.innerHTML += 'Total';-->
+<!--  </script>&ndash;&gt;-->
 
-    //h2.innerHTML += 'Total';
-  </script>-->
+<!--  <h3>Enrollment number {{index+1}}</h3>-->
+<!--<ul>-->
+<!--  <li><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>-->
+<!--  <ul>-->
+<!--    <li>-->
+<!--      <strong>erasmusCode:</strong> {{cand.receivinginstitution.erasmusCode}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>pic:</strong> {{cand.receivinginstitution.pic}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>oid:</strong> {{cand.receivinginstitution.oid}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>street:</strong> {{cand.receivinginstitution.street}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>postalCode:</strong> {{cand.receivinginstitution.postalCode}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>city:</strong> {{cand.receivinginstitution.city}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>country:</strong> {{cand.receivinginstitution.country}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>webpage:</strong> {{cand.receivinginstitution.webpage}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>ContactPerson:</strong>-->
+<!--      <ul>-->
+<!--        <li>-->
+<!--          <strong>Name:</strong> {{cand.receivinginstitution.contactperson.name}}-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <strong>Phone:</strong> {{cand.receivinginstitution.contactperson.phone}}-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <strong>Email:</strong> {{cand.receivinginstitution.contactperson.cpemail}}-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </li>-->
+<!--  </ul>-->
 
-  <h3>Enrollment number {{index+1}}</h3>
-<ul>
-  <li><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>
-  <ul>
-    <li>
-      <strong>erasmusCode:</strong> {{cand.receivinginstitution.erasmusCode}}
-    </li>
-    <li>
-      <strong>pic:</strong> {{cand.receivinginstitution.pic}}
-    </li>
-    <li>
-      <strong>oid:</strong> {{cand.receivinginstitution.oid}}
-    </li>
-    <li>
-      <strong>street:</strong> {{cand.receivinginstitution.street}}
-    </li>
-    <li>
-      <strong>postalCode:</strong> {{cand.receivinginstitution.postalCode}}
-    </li>
-    <li>
-      <strong>city:</strong> {{cand.receivinginstitution.city}}
-    </li>
-    <li>
-      <strong>country:</strong> {{cand.receivinginstitution.country}}
-    </li>
-    <li>
-      <strong>webpage:</strong> {{cand.receivinginstitution.webpage}}
-    </li>
-    <li>
-      <strong>ContactPerson:</strong>
-      <ul>
-        <li>
-          <strong>Name:</strong> {{cand.receivinginstitution.contactperson.name}}
-        </li>
-        <li>
-          <strong>Phone:</strong> {{cand.receivinginstitution.contactperson.phone}}
-        </li>
-        <li>
-          <strong>Email:</strong> {{cand.receivinginstitution.contactperson.cpemail}}
-        </li>
-      </ul>
-    </li>
-  </ul>
-
-</ul>
-<ul>
-  <li><strong>Receiving institution:</strong> {{cand.sendinginstitution.sname}}</li>
-  <ul>
-    <li>
-      <strong>erasmusCode:</strong> {{cand.sendinginstitution.serasmusCode}}
-    </li>
-    <li>
-      <strong>street:</strong> {{cand.sendinginstitution.sfacOrDep}}
-    </li>
-    <li>
-      <strong>Address:</strong> {{cand.sendinginstitution.saddress}}
-    </li>
-    <li>
-      <strong>Country:</strong> {{cand.sendinginstitution.scountry}}
-    </li>
-    <li>
-      <strong>ContactPerson:</strong>
-      <ul>
-        <li>
-          <strong>Name:</strong> {{cand.sendinginstitution.contactperson.name}}
-        </li>
-        <li>
-          <strong>Phone:</strong> {{cand.sendinginstitution.contactperson.phone}}
-        </li>
-        <li>
-          <strong>Email:</strong> {{cand.sendinginstitution.contactperson.cpemail}}
-        </li>
-      </ul>
-    </li>
-  </ul>
-</ul>
-  <h1 style="color:red" *ngIf="last">Total:{{index+1}}</h1>
-</div>
+<!--</ul>-->
+<!--<ul>-->
+<!--  <li><strong>Receiving institution:</strong> {{cand.sendinginstitution.sname}}</li>-->
+<!--  <ul>-->
+<!--    <li>-->
+<!--      <strong>erasmusCode:</strong> {{cand.sendinginstitution.serasmusCode}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>street:</strong> {{cand.sendinginstitution.sfacOrDep}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>Address:</strong> {{cand.sendinginstitution.saddress}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>Country:</strong> {{cand.sendinginstitution.scountry}}-->
+<!--    </li>-->
+<!--    <li>-->
+<!--      <strong>ContactPerson:</strong>-->
+<!--      <ul>-->
+<!--        <li>-->
+<!--          <strong>Name:</strong> {{cand.sendinginstitution.contactperson.name}}-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <strong>Phone:</strong> {{cand.sendinginstitution.contactperson.phone}}-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          <strong>Email:</strong> {{cand.sendinginstitution.contactperson.cpemail}}-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</ul>-->
+<!--  <h1 style="color:red" *ngIf="last">Total:{{index+1}}</h1>-->
+<!--</div>-->
 <!--
 <button type="button" (click)="confirmSelectedCand(cand.student)">Select Contact Person</button>
 -->
 
 
-
 <br><br><br><br><br>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

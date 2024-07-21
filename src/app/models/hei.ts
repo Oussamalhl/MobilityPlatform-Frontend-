@@ -16,4 +16,5 @@ export class Hei {
   webpage!:string;
   mobility!:boolean
   rcp!:number
+  specialty!:string
 }

@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Pick up contact person for sending institution {{data.id}}</h1>
+<div mat-dialog-content>
+  <p>Available personnel: </p>
+<!--  <select id="contactPerson" class="form-control" (change)="getContactPerson()">-->
+<!--    <option *ngFor="let cp of contactPersons" [value]="cp.name">-->
+
+<!--    </option>-->
+<!--  </select>-->
+  <mat-form-field>
+    <mat-select [(ngModel)]="idcp" id="contactPerson" class="form-control" (selectionChange)="getContactPerson()" required>
+      <mat-option>None</mat-option>
+      <mat-option *ngFor="let cp of contactPersons" [value]="cp.id">
+        {{cp.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-content *ngIf="selectedContactPerson">
+  <p>Selected person informations: </p>
+  <ul>
+    <li>
+      Name: {{selectedContactPerson.name}}
+    </li>
+    <li>
+      Email: {{selectedContactPerson.cpemail}}
+    </li>
+    <li>
+      Phone: {{selectedContactPerson.phone}}
+    </li>
+  </ul>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="affectContactPerson(data.id)" cdkFocusInitial>Ok</button>
+</div>

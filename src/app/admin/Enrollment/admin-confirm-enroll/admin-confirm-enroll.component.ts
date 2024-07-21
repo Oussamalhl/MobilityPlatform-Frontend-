@@ -8,6 +8,8 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import { cilCheckAlt,cilX } from '@coreui/icons';
+import {ContactPersonDialogComponent} from "./contact-person-dialog/contact-person-dialog.component";
+import {ContactPerson} from "../../../models/contact-person";
 
 @Component({
   selector: 'app-admin-confirm-enroll',
@@ -18,13 +20,14 @@ export class AdminConfirmEnrollComponent implements OnInit {
   icons = { cilCheckAlt,cilX };
 
   ListCand:Candidature[]=[];
+  contactPerson!:ContactPerson
   id!:number
   ids!:number
   cand!:Candidature
   isSending!:boolean
   sent!:boolean
   dataSource = new MatTableDataSource<Candidature>(this.ListCand);
-  columnsToDisplay =['showall','preselect','confirm','details','firstname','lastname','confirmed','preselected','confirmationd','receivingInst','sendingInst'];
+  columnsToDisplay =['contactPerson','preselect','confirm','details','firstname','lastname','preselected','confirmed','confirmationd','receivingInst','sendingInst'];
 
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -32,8 +35,17 @@ export class AdminConfirmEnrollComponent implements OnInit {
   @ViewChild('dialogRef', { static: true }) dialogRef!: TemplateRef<any>;
 
   constructor(private _service:HeiService,private _liveAnnouncer: LiveAnnouncer,private _router:Router,private dialog: MatDialog) { }
-  openDialog() {
-    let dialog = this.dialog.open(this.dialogRef);
+  openDialog(idCand: number): void {
+    console.log("cand: "+idCand)
+    const dialogRef = this.dialog.open(ContactPersonDialogComponent, {
+      width: '250px',
+      data: {id: idCand}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.contactPerson = result;
+    });
   }
 
   @Output() newItemEvent = new EventEmitter<number>();

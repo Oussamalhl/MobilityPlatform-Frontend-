@@ -64,6 +64,7 @@ import { AdminConfirmEnrollComponent } from './admin/Enrollment/admin-confirm-en
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContactPersonDialogComponent } from './admin/Enrollment/admin-confirm-enroll/contact-person-dialog/contact-person-dialog.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -82,7 +83,8 @@ const APP_CONTAINERS = [
     AdminListEnrollComponent,
     AdminDetailsEnrollmentComponent,
     AdminShowEnrollmentComponent,
-    AdminConfirmEnrollComponent
+    AdminConfirmEnrollComponent,
+    ContactPersonDialogComponent
   ],
   imports: [
     BrowserModule,

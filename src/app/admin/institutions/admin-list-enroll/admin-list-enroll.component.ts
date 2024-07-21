@@ -83,6 +83,7 @@ export class AdminListEnrollComponent implements OnInit {
   countries: any = countries;
   contactpersons: any = this._service.getAllContactPerson();
   selectedcp: ContactPerson = new ContactPerson();
+  specialty:string=""
 
   id!: number
 
@@ -145,6 +146,7 @@ export class AdminListEnrollComponent implements OnInit {
 
       }
     )
+    this.specialty = this.route.snapshot.paramMap.get("specialty") as string
 
   }
 
@@ -193,12 +195,12 @@ export class AdminListEnrollComponent implements OnInit {
 
     this.candidature.student = this.student;
     this.rreceivinginstitution.contactperson = this.rcontactperson;
-    this.sendinginstitution.contactperson = this.selectedcp;
+    //this.sendinginstitution.contactperson = this.selectedcp;
     this.candidature.receivinginstitution = this.rreceivinginstitution;
     this.candidature.sendinginstitution = this.sendinginstitution;
 
 
-    this._service.addCandidature(this.candidature, this.id).subscribe(
+    this._service.addCandidature(this.candidature).subscribe(
       (res) => {
         console.log(res);
         this.isSending = false;
