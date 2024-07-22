@@ -1,0 +1,58 @@
+<br xmlns="http://www.w3.org/1999/html"><br><br><br>
+<style>.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}</style>
+<div class="container">
+  <div class="heading heading-4"><h2 style="color: rgba(119,11,89,0.84);">Quiz </h2>
+  </div>
+
+
+
+
+
+  <div class="content-cover">
+
+    <div class="kode-donate">
+      <label>Required to Success : {{quiz?.requiredToSuccess}}%</label>
+      <div style="padding-bottom : 30px" *ngFor="let question of quiz?.questions">
+        <div class="row">
+          <div class="col-md-1">
+            <label style="padding-top: 10px" >Question :</label>
+          </div>
+          <div class="col-md-10">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="question.question" placeholder="Question ?">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <small id="emailHelp" class="form-text text-muted">Answer(s)</small>
+          </div>
+        </div>
+        <div class="align-items-start d-flex" *ngFor="let answer of question?.answers">
+
+          <div class="col-lg-auto">
+            <mat-checkbox class="example-radio-button " [(ngModel)]="answer.correct"></mat-checkbox>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="answer.answer"placeholder="Answer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <br><br>
+    <a (click)="submitQuiz()" class="btn-filled" > Submit</a>
+  </div>
+</div>

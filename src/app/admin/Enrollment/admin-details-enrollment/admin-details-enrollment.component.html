@@ -37,7 +37,7 @@
 </style>
 
 
-<h1><b>{{cand.student.firstName}} {{cand.student.lastName}}</b>'s enrollment for <b>{{cand.receivinginstitution.organisationLegalName}}</b> details</h1>
+<h1 *ngIf="cand.student"><b>{{cand.student.firstName}} {{cand.student.lastName}}</b>'s enrollment for <b>{{cand.receivinginstitution.organisationLegalName}}</b> details</h1>
 <ul>
   <li class="titre"><strong>Receiving institution:</strong> {{cand.receivinginstitution.organisationLegalName}}</li>
   <br>
@@ -165,8 +165,32 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                           <div class="d-flex justify-content-center">
-                            <button mat-raised-button color="" [routerLink]="['detailsenroll/'+element.id]">
+                            <button mat-raised-button color="" (click)="enrollmentDetails(element.id)">
                               Details
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="quiz">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="quiz"
+                            sortActionDescription="Sort by number"> Quiz
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button *ngIf="element.quiz" mat-raised-button color="" [routerLink]="['quiz/manage/'+element.quiz.quizId]">
+                              Quiz
+                            </button>
+                          </div>
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="quizPass">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="quizPass"
+                            sortActionDescription="Sort by number"> Quiz Pass
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                          <div class="d-flex justify-content-center">
+                            <button *ngIf="element.quiz" mat-raised-button color="" [routerLink]="['quiz/pass/'+element.quiz.quizId]">
+                              Pass Quiz
                             </button>
                           </div>
                         </td>

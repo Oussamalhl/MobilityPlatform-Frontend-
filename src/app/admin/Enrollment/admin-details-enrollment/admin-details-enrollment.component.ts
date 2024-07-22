@@ -23,7 +23,7 @@ export class AdminDetailsEnrollmentComponent implements OnInit {
   id!:number;
   idc!:number
   dataSource = new MatTableDataSource<Candidature>(this.ListCand);
-  columnsToDisplay =['details','contactPerson','preselected','confirmed','confirmationd','receivingInst','sendingInst','city','country'];
+  columnsToDisplay =['details','contactPerson','quiz','quizPass','preselected','confirmed','confirmationd','receivingInst','sendingInst','city','country'];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -89,6 +89,11 @@ export class AdminDetailsEnrollmentComponent implements OnInit {
     }
   }
 
+  enrollmentDetails(id:number){
+    this._router.navigate(['/admin/showconfpres/detailsenroll/'+id]).then(() => {
+      window.location.reload();
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

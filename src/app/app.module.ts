@@ -65,6 +65,10 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContactPersonDialogComponent } from './admin/Enrollment/admin-confirm-enroll/contact-person-dialog/contact-person-dialog.component';
+import { AdminEnrollmentQuizCreateComponent } from './admin/Enrollment/Quiz/admin-enrollment-quiz-create/admin-enrollment-quiz-create.component';
+import { AdminEnrollmentQuizPassComponent } from './admin/Enrollment/Quiz/admin-enrollment-quiz-pass/admin-enrollment-quiz-pass.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSliderModule} from "@angular/material/slider";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -84,7 +88,9 @@ const APP_CONTAINERS = [
     AdminDetailsEnrollmentComponent,
     AdminShowEnrollmentComponent,
     AdminConfirmEnrollComponent,
-    ContactPersonDialogComponent
+    ContactPersonDialogComponent,
+    AdminEnrollmentQuizCreateComponent,
+    AdminEnrollmentQuizPassComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +134,9 @@ const APP_CONTAINERS = [
     PopoverModule,
     FormsModule,
     MatSelectModule,
-    NgbModule
+    NgbModule,
+    MatCheckboxModule,
+    MatSliderModule
 
   ],
   providers: [

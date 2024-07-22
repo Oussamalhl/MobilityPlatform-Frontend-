@@ -198,6 +198,7 @@ export class AdminListEnrollComponent implements OnInit {
     //this.sendinginstitution.contactperson = this.selectedcp;
     this.candidature.receivinginstitution = this.rreceivinginstitution;
     this.candidature.sendinginstitution = this.sendinginstitution;
+    this.candidature.specialty = this.specialty;
 
 
     this._service.addCandidature(this.candidature).subscribe(

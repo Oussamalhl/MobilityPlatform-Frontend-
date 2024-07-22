@@ -13,6 +13,12 @@ import {
 } from "./admin/Enrollment/admin-details-enrollment/admin-details-enrollment.component";
 import {AdminShowEnrollmentComponent} from "./admin/Enrollment/admin-show-enrollment/admin-show-enrollment.component";
 import {AdminConfirmEnrollComponent} from "./admin/Enrollment/admin-confirm-enroll/admin-confirm-enroll.component";
+import {
+  AdminEnrollmentQuizCreateComponent
+} from "./admin/Enrollment/Quiz/admin-enrollment-quiz-create/admin-enrollment-quiz-create.component";
+import {
+  AdminEnrollmentQuizPassComponent
+} from "./admin/Enrollment/Quiz/admin-enrollment-quiz-pass/admin-enrollment-quiz-pass.component";
 
 const routes: Routes = [
   /*{
@@ -46,6 +52,14 @@ const routes: Routes = [
       {path:'showenroll/detailsenroll/:id', component: AdminDetailsEnrollmentComponent},
       {path:'showconfpres', component: AdminConfirmEnrollComponent},
       {path:'showconfpres/detailsenroll/:id', component: AdminDetailsEnrollmentComponent},
+      {
+        path : 'showconfpres/detailsenroll/:id/quiz/manage/:idq',
+        component : AdminEnrollmentQuizCreateComponent
+      },
+      {
+        path : 'showconfpres/detailsenroll/:id/quiz/pass/:idq',
+        component : AdminEnrollmentQuizPassComponent
+      },
 
      /* {
         path: 'listhei',

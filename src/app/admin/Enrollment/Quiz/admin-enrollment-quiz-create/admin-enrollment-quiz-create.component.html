@@ -1,0 +1,82 @@
+<br xmlns="http://www.w3.org/1999/html"><br><br><br>
+<style>.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}</style>
+<div class="container">
+  <div class="heading heading-4"><h2 style="color: rgba(119,11,89,0.84);">Quiz </h2>
+  </div>
+
+
+
+
+
+  <div class="content-cover">
+
+    <div class="kode-donate">
+      <label>Required to Success : {{quiz?.requiredToSuccess}}%</label>
+      <div class="row">
+        <mat-slider
+          thumbLabel
+          tickInterval="1000"
+          step="1"
+          min="0"
+          max="100"
+          [(ngModel)]="quiz.requiredToSuccess"
+          aria-label="units"></mat-slider>
+      </div>
+      <div style="padding-bottom : 30px" *ngFor="let question of quiz?.questions">
+        <div class="row">
+          <div class="col-md-1">
+            <label style="padding-top: 10px" >Question :</label>
+          </div>
+          <div class="col-md-10">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="question.question" placeholder="Question ?">
+          </div>
+          <div class="col-md-1">
+            <button (click)="deleteQuestion(quiz, question)" style="padding-top: 5px;" class="btn btn-danger btn-sm rounded-0" type="button" title="Delete">
+              <svg cIcon name="cil-trash" size="xl" title="Numbered List Icon"></svg>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <small id="emailHelp" class="form-text text-muted">Answer(s)</small>
+          </div>
+        </div>
+        <div class="align-items-start d-flex" *ngFor="let answer of question?.answers">
+
+          <div class="col-lg-auto">
+            <mat-checkbox class="example-radio-button " [(ngModel)]="answer.correct"></mat-checkbox>
+          </div>
+          <div class="col-lg-5">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="answer.answer"placeholder="Answer">
+          </div>
+          <div class="col-lg-2">
+            <button (click)="deleteAnswer(question, answer)" style="padding-top: 5px;" class="btn btn-danger btn-sm rounded-0" type="button" title="Delete"><svg cIcon name="cil-trash" size="xl" title="Numbered List Icon"></svg></button>
+          </div>
+
+
+        </div>
+        <li>
+          <button type="button" (click)="addAnswer(question)" class="btn btn-primary">Add Answer</button>
+        </li>
+      </div>
+      <button type="button" (click)="addQuestion(quiz)" class="btn btn-secondary">Add Question</button>
+    </div>
+
+
+
+
+
+
+    <br><br>
+    <a (click)="updateQuiz()" class="btn-filled" > Update</a>
+  </div>
+</div>

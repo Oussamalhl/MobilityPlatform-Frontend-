@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import {Student} from "../models/student";
 import {SendingInstitution} from "../models/sending-institution";
 import {ReceivingInstitution} from "../models/receiving-institution";
+import {Quiz} from "../models/Quiz";
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +61,19 @@ export class HeiService {
   }
   getStudentCandidatures(c:Candidature):Observable<Candidature[]>{
     return this._http.post<Candidature[]>("http://localhost:8081/studCands",c);
+  }
+
+  getQuiz(idCand : number) {
+    return this._http.get<Quiz>("http://localhost:8081/" +idCand+ '/getQuiz')
+  }
+  userGetQuiz(idCand : number){
+    return this._http.get<Quiz>("http://localhost:8081/" +idCand+ '/viewQuiz')
+  }
+  setQuiz(idCand : number, quiz : Quiz) {
+    return this._http.post<Quiz>("http://localhost:8081/" +idCand+ '/setQuiz', quiz)
+  }
+  evaluateQuiz(idCand : number, quiz : Quiz){
+    return this._http.post("http://localhost:8081/" +idCand+ '/submitQuizAnswers', quiz)
   }
 
 }
