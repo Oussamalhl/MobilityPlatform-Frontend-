@@ -1,142 +1,180 @@
+<style>
+  label{
+    font-weight: bold;
+  }
+  h2{
+    font-weight: bold;
+  }
+</style>
+
 <h1><b>{{this.rreceivinginstitution.organisationLegalName}}</b>'s mobility opportunity application form.</h1>
 <h2 style="color: #ac2925">Specialty: <b>{{this.specialty}}</b></h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation" ngNativeValidate
-      xmlns="http://www.w3.org/1999/html">
-
+<form  [validated]=true #browserDefaultsForm="ngForm" [formGroup]="form" (ngSubmit)="onSubmit()" [gutter]="3" cForm cRow class="needs-validation">
   <section>
     <h2>Personal information</h2>
     <c-col [md]="4">
-      <label cLabel>First name</label>
-      <input class="form-control" type="text" formControlName="firstName" required />
+      <label cLabel for="firstName"><b>First name</b></label>
+        <input cFormControl
+               id="firstName"
+               placeholder="Enter first name "
+               class="form-control"
+               type="text"
+               formControlName="firstName"
+               required/>
+        <c-form-feedback [valid]="false">First name is required!</c-form-feedback>
+
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Last name</label>
-      <input class="form-control" type="text" formControlName="lastName" required />
+      <label cLabel><b>Last name</b></label>
+      <input placeholder="Enter last name " class="form-control" type="text" formControlName="lastName" required/>
+      <c-form-feedback [valid]="false">Last name is required!</c-form-feedback>
+
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Nationality</label>
+      <label cLabel><b>Nationality</b></label>
       <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="1">Countries</label>
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="1">Countries</label>
+        </div>
+        <select class="custom-select" id="1" formControlName="nationality" required>
+          <option value="" disabled selected>Select Country</option>
+          <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+        </select>
+        <c-form-feedback [valid]="false">Nationality is required!</c-form-feedback>
       </div>
-      <select class="custom-select" id="1" formControlName="nationality">
-        <option value="" disabled selected>Select Country</option>
-        <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
-      </select>
+      <!-- <label cLabel>Nationality</label>
+       <input class="form-control" type="text" formControlName="nationality" required />-->
+    </c-col>
+
+    <c-col [md]="4">
+      <label cLabel><b>Study cycle</b></label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="2">Study cycle</label>
+        </div>
+        <select class="custom-select" id="2" formControlName="nationality" required #cycle>
+          <option value="" disabled selected>Select Country</option>
+          <option *ngFor="let cycle of studyCycles" [value]="cycle">{{cycle}}</option>
+        </select>
+        <c-form-feedback [valid]="false">Nationality is required!</c-form-feedback>
       </div>
-     <!-- <label cLabel>Nationality</label>
-      <input class="form-control" type="text" formControlName="nationality" required />-->
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Study cycle</label>
-      <input class="form-control" type="text" formControlName="studyCycle" required />
+      <label cLabel><b>Education field</b></label>
+      <input class="form-control" type="text" formControlName="educationField" required/>
+      <c-form-feedback [valid]="false">Education field is required!</c-form-feedback>
+
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Education field</label>
-      <input class="form-control" type="text" formControlName="educationField" required />
+      <label cLabel><b>Email</b></label>
+      <input class="form-control" type="email" formControlName="email" required/>
+      <c-form-feedback [valid]="false">Email is required!</c-form-feedback>
+
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Email</label>
-      <input class="form-control" type="email" formControlName="email" required />
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>Gender</label>
+      <label cLabel><b>Gender</b></label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect02">Options</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect02" formControlName="sex">
+        <select required class="custom-select" id="inputGroupSelect02" formControlName="sex">
           <option selected>Choose...</option>
           <option value=True>Male</option>
           <option value=False>Female</option>
         </select>
+        <c-form-feedback [valid]="false">Gender is required!</c-form-feedback>
+
       </div>
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Birthdate</label>
-      <input class="form-control" type="date" formControlName="birthdate" required />
+      <label cLabel><b>Birthdate</b></label>
+      <input class="form-control" type="date" formControlName="birthdate" required/>
+      <c-form-feedback [valid]="false">Birthdate is required!</c-form-feedback>
+
     </c-col>
   </section>
 
 
-  <section>
-    <h2>Receiving institution's information</h2>
-    <c-col [md]="4">
-      <label cLabel>Proposal Number</label>
-      <input class="form-control" type="text" formControlName="proposalNumber" required readOnly/>
-      <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
-    </c-col>
+  <c-col [md]="4">
+    <section>
+      <h2><b>Receiving institution's information</b></h2>
+      <c-col [md]="4">
+        <label cLabel><b>Proposal Number</b></label>
+        <input class="form-control" type="text" formControlName="proposalNumber" required readOnly/>
+        <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
+      </c-col>
 
-    <c-col [md]="4">
-      <label cLabel>Erasmus Code</label>
-      <input class="form-control" type="text" formControlName="erasmusCode" required readOnly/>
-    </c-col>
-
-
-    <c-col [md]="4">
-      <label cLabel>PIC</label>
-      <input class="form-control" type="text" formControlName="pic" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>OID</label>
-      <input class="form-control" type="text" formControlName="oid" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>Organisation Legal Name</label>
-      <input class="form-control" type="text" formControlName="organisationLegalName" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>Street</label>
-      <input class="form-control" type="text" formControlName="street" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>Postal Code</label>
-      <input class="form-control" type="text" formControlName="postalCode" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>City</label>
-      <input class="form-control" type="text" formControlName="city" required readOnly/>
-    </c-col>
-
-    <c-col [md]="4">
-      <label cLabel>Country</label>
-      <input class="form-control" type="text" formControlName="country" required readOnly/>
-    </c-col>
+      <c-col [md]="4">
+        <label cLabel><b>Erasmus Code</b></label>
+        <input class="form-control" type="text" formControlName="erasmusCode" required readOnly/>
+      </c-col>
 
 
+      <c-col [md]="4">
+        <label cLabel><b>PIC</b></label>
+        <input class="form-control" type="text" formControlName="pic" required readOnly/>
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel><b>OID</b></label>
+        <input class="form-control" type="text" formControlName="oid" required readOnly/>
+      </c-col>
+
+      <c-col [md]="10">
+        <label cLabel><b>Organisation Legal Name</b></label>
+        <input class="form-control" type="text" formControlName="organisationLegalName" required readOnly/>
+      </c-col>
+
+      <c-col [md]="10">
+        <label cLabel><b>Street</b></label>
+        <input class="form-control" type="text" formControlName="street" required readOnly/>
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel><b>Postal Code</b></label>
+        <input class="form-control" type="text" formControlName="postalCode" required readOnly/>
+      </c-col>
+
+      <c-col [md]="10">
+        <label cLabel>City</label>
+        <input class="form-control" type="text" formControlName="city" required readOnly/>
+      </c-col>
+
+      <c-col [md]="4">
+        <label cLabel>Country</label>
+        <input class="form-control" type="text" formControlName="country" required readOnly/>
+      </c-col>
+    </section>
+  </c-col>
+
+  <c-col [md]="4">
     <section>
       <h2>Receiving institution's contact person</h2>
 
-      <c-col [md]="4">
+      <c-col [md]="10">
         <label cLabel>Name</label>
-        <input class="form-control" type="text" formControlName="rcpname" required />
+        <input class="form-control" type="text" formControlName="rcpname" required readonly/>
       </c-col>
 
-      <c-col [md]="4">
+      <c-col [md]="10">
         <label cLabel>Email</label>
-        <input class="form-control" type="email" formControlName="rcpemail" required />
+        <input class="form-control" type="email" formControlName="rcpemail" required readonly/>
       </c-col>
 
-      <c-col [md]="4">
+      <c-col [md]="10">
         <label cLabel>Phone</label>
-        <input class="form-control" type="text" formControlName="rcpphone" required />
+        <input class="form-control" type="text" formControlName="rcpphone" required readonly/>
       </c-col>
 
     </section>
+  </c-col>
 
-  </section>
 
   <section>
     <h2>Sending institution's information</h2>
@@ -151,24 +189,26 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="name">Options</label>
         </div>
-        <select class="custom-select" id="name" formControlName="sname" #name>
+        <select [value]="cycle.value==='Engineering'?'Esprit ingenieur':cycle.value==='Preparatoire'?'Esprit prepa':cycle.value==='Business'?'Esprit school of business':''" required class="custom-select" id="name" formControlName="sname" #name>
           <option selected>Choose...</option>
           <option value="Esprit school of business">Esprit school of business</option>
           <option value="Esprit ingenieur">Esprit ingenieur</option>
           <option value="Esprit prepa">Esprit-prepa</option>
         </select>
+        <c-form-feedback [valid]="false">Sending institution's name is required!</c-form-feedback>
+
       </div>
       <!--<c-form-feedback [valid]="false">Please provide a valid state.</c-form-feedback>-->
     </c-col>
 
 
     <c-col [md]="4" *ngIf="name.value==='Esprit school of business'">
-      <label cLabel>facOrDep</label>
+      <label cLabel>faculty or department</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac">Options</label>
         </div>
-        <select class="custom-select" id="fac" formControlName="sfacOrDep" >
+        <select class="custom-select" id="fac" formControlName="sfacOrDep">
           <option selected>Choose...</option>
           <option value="Business A">Business A</option>
           <option value="Business B">Business B</option>
@@ -176,12 +216,12 @@
       </div>
     </c-col>
     <c-col [md]="4" *ngIf="name.value==='Esprit ingenieur'">
-      <label cLabel>facOrDep</label>
+      <label cLabel>faculty or department</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac1">Options</label>
         </div>
-        <select class="custom-select" id="fac1" formControlName="sfacOrDep" >
+        <select class="custom-select" id="fac1" formControlName="sfacOrDep">
           <option selected>Choose...</option>
           <option value="IT">IT</option>
           <option value="Mechanics">Mechanics</option>
@@ -190,12 +230,12 @@
       </div>
     </c-col>
     <c-col [md]="4" *ngIf="name.value==='Esprit prepa'">
-      <label cLabel>facOrDep</label>
+      <label cLabel>faculty or department</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="fac2">Options</label>
         </div>
-        <select class="custom-select" id="fac2" formControlName="sfacOrDep" >
+        <select class="custom-select" id="fac2" formControlName="sfacOrDep">
           <option selected>Choose...</option>
           <option value="1">First year</option>
           <option value="2">Second year</option>
@@ -204,8 +244,8 @@
     </c-col>
 
     <c-col [md]="4">
-      <label cLabel>Erasmus Code</label>
-      <input class="form-control" type="text" formControlName="serasmusCode" required />
+      <label cLabel>Mobility Code</label>
+      <input [value]="name.value+' Mobility Code'" class="form-control" type="text" formControlName="serasmusCode" required/>
     </c-col>
 
     <c-col [md]="4">
@@ -214,7 +254,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="addr">Options</label>
         </div>
-        <select class="custom-select" id="addr" formControlName="saddress" >
+        <select class="custom-select" id="addr" formControlName="saddress">
           <option selected>Choose...</option>
           <option value="Ariana Essoughra">Ariana-Raoued</option>
           <option value="Charguia">Charguia-Cours des soirs</option>
@@ -224,40 +264,40 @@
 
     <c-col [md]="4">
       <label cLabel>Country</label>
-      <input class="form-control" type="text" formControlName="scountry" value="Tunisia" required />
+      <input class="form-control" type="text" formControlName="scountry" [value]="'Tunisia'" required/>
     </c-col>
 
 
-<!--    <section>-->
-<!--      <h2>Sending institution's contact person</h2>-->
+    <!--    <section>-->
+    <!--      <h2>Sending institution's contact person</h2>-->
 
-<!--      <c-col [md]="4">-->
-<!--        <label cLabel>Contact Person</label>-->
-<!--        <div class="input-group mb-3">-->
-<!--          <div class="input-group-prepend">-->
-<!--            <label class="input-group-text" for="2">Options</label>-->
-<!--          </div>-->
-<!--          <select class="custom-select" id="2" formControlName="scpname" #selectedcph>-->
-<!--            <option value="" disabled selected>Select Contact person</option>-->
-<!--            <option *ngFor="let cp of contactpersons | async" [value]="cp.id">{{cp.name}}  </option>-->
-<!--          </select>-->
-<!--          <button type="button" (click)="selectedContactPerson(selectedcph.value)">Select Contact Person</button>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;<label cLabel>Name</label>-->
-<!--        <input class="form-control" type="text" formControlName="scpname" required />&ndash;&gt;-->
-<!--      </c-col>-->
+    <!--      <c-col [md]="4">-->
+    <!--        <label cLabel>Contact Person</label>-->
+    <!--        <div class="input-group mb-3">-->
+    <!--          <div class="input-group-prepend">-->
+    <!--            <label class="input-group-text" for="2">Options</label>-->
+    <!--          </div>-->
+    <!--          <select class="custom-select" id="2" formControlName="scpname" #selectedcph>-->
+    <!--            <option value="" disabled selected>Select Contact person</option>-->
+    <!--            <option *ngFor="let cp of contactpersons | async" [value]="cp.id">{{cp.name}}  </option>-->
+    <!--          </select>-->
+    <!--          <button type="button" (click)="selectedContactPerson(selectedcph.value)">Select Contact Person</button>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash;<label cLabel>Name</label>-->
+    <!--        <input class="form-control" type="text" formControlName="scpname" required />&ndash;&gt;-->
+    <!--      </c-col>-->
 
-<!--      <c-col [md]="4">-->
-<!--        <label cLabel>Email</label>-->
-<!--        <input class="form-control" type="email" formControlName="scpemail" [value]="selectedcp.cpemail" required />-->
-<!--      </c-col>-->
+    <!--      <c-col [md]="4">-->
+    <!--        <label cLabel>Email</label>-->
+    <!--        <input class="form-control" type="email" formControlName="scpemail" [value]="selectedcp.cpemail" required />-->
+    <!--      </c-col>-->
 
-<!--      <c-col [md]="4">-->
-<!--        <label cLabel>Phone</label>-->
-<!--        <input class="form-control" type="text" formControlName="scpphone" [value]="selectedcp.phone" required />-->
-<!--      </c-col>-->
+    <!--      <c-col [md]="4">-->
+    <!--        <label cLabel>Phone</label>-->
+    <!--        <input class="form-control" type="text" formControlName="scpphone" [value]="selectedcp.phone" required />-->
+    <!--      </c-col>-->
 
-<!--    </section>-->
+    <!--    </section>-->
 
   </section>
 

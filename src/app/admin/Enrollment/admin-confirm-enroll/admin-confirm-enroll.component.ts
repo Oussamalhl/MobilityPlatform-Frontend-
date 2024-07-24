@@ -27,7 +27,7 @@ export class AdminConfirmEnrollComponent implements OnInit {
   isSending!:boolean
   sent!:boolean
   dataSource = new MatTableDataSource<Candidature>(this.ListCand);
-  columnsToDisplay =['contactPerson','preselect','confirm','details','firstname','lastname','preselected','confirmed','confirmationd','receivingInst','sendingInst'];
+  columnsToDisplay =['contactPerson','preselect','confirm','details','firstname','lastname','preselected','confirmed','confirmationd','receivingInst','sendingInst','remove'];
 
 
   @ViewChild(MatSort) sort!: MatSort;
@@ -50,6 +50,10 @@ export class AdminConfirmEnrollComponent implements OnInit {
 
   @Output() newItemEvent = new EventEmitter<number>();
 
+  Delete(id: number) {
+    this._service.deleteCandidature(id).subscribe(res => console.log("Candidature Deleted"));
+    setTimeout(() => this.reload(), 1000);
+  }
   ConfirmStudent(idCand: number) {
     this._service.getCandidature(idCand).subscribe(e=>{
       this.cand=<Candidature>e;

@@ -5,6 +5,12 @@
   margin: 15px 0;
   align-items: flex-start;
 }
+small{
+  font-weight: bold;
+}
+label{
+  font-weight: bold;
+}
 
 .example-radio-button {
   margin: 5px;
@@ -47,7 +53,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <small id="emailHelp" class="form-text text-muted">Answer(s)</small>
+            <small id="emailHelp" class="form-text text-muted"><b>Answer(s)</b></small>
           </div>
         </div>
         <div class="align-items-start d-flex" *ngFor="let answer of question?.answers">
@@ -56,7 +62,7 @@
             <mat-checkbox class="example-radio-button " [(ngModel)]="answer.correct"></mat-checkbox>
           </div>
           <div class="col-lg-5">
-            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="answer.answer"placeholder="Answer">
+            <input type="text" class="form-control"  aria-describedby="emailHelp" [(ngModel)]="answer.answer" placeholder="Answer">
           </div>
           <div class="col-lg-2">
             <button (click)="deleteAnswer(question, answer)" style="padding-top: 5px;" class="btn btn-danger btn-sm rounded-0" type="button" title="Delete"><svg cIcon name="cil-trash" size="xl" title="Numbered List Icon"></svg></button>
@@ -77,6 +83,7 @@
 
 
     <br><br>
-    <a (click)="updateQuiz()" class="btn-filled" > Update</a>
+    <button type="button" (click)="updateQuiz()" class="btn bg-info">Update</button>
+
   </div>
 </div>

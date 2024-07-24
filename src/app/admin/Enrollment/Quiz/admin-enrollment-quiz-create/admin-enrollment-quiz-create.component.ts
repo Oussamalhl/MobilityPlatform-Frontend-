@@ -17,7 +17,7 @@ export class AdminEnrollmentQuizCreateComponent implements OnInit {
   constructor(private quizService : HeiService,  private route: ActivatedRoute, private _router: Router) {
     this.id =  Number(this.route.snapshot.paramMap.get("id"));
     this.idq =  Number(this.route.snapshot.paramMap.get("idq"));
-    this.quizService.getQuiz(this.idq).subscribe((data)=>{
+    this.quizService.getQuiz(this.id).subscribe((data)=>{
       if (data) {
         this.quiz = data;
       }

@@ -84,6 +84,7 @@ export class AdminListEnrollComponent implements OnInit {
   contactpersons: any = this._service.getAllContactPerson();
   selectedcp: ContactPerson = new ContactPerson();
   specialty:string=""
+  studyCycles:string[]=["Preparatoire","Engineering","Business"]
 
   id!: number
 
@@ -133,6 +134,7 @@ export class AdminListEnrollComponent implements OnInit {
     this.form.controls['postalCode'].setValue(this.rreceivinginstitution.postalCode);
     this.form.controls['city'].setValue(this.rreceivinginstitution.city);
     this.form.controls['country'].setValue(this.rreceivinginstitution.country);
+    this.form.controls['scountry'].setValue('Tunisia');
 
     this.id = Number(this.route.snapshot.paramMap.get("rcp"))
     console.log("rcp id: "+this.id)

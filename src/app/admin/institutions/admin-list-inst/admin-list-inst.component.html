@@ -116,7 +116,7 @@
                         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by webpage">
                           Webpage
                         </th>
-                        <td mat-cell *matCellDef="let element"> {{element.webpage}} </td>
+                        <td mat-cell *matCellDef="let element"><a href="http://{{element.webpage}}">{{element.webpage}}</a> </td>
                       </ng-container>
 
                       <ng-container matColumnDef="enrollHei">

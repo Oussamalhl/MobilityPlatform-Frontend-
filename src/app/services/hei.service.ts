@@ -75,5 +75,8 @@ export class HeiService {
   evaluateQuiz(idCand : number, quiz : Quiz){
     return this._http.post("http://localhost:8081/" +idCand+ '/submitQuizAnswers', quiz)
   }
+  deleteCandidature(idCand : number){
+    return this._http.delete("http://localhost:8081/delCand?idCand="+idCand)
+  }
 
 }
